@@ -9,13 +9,11 @@ remove-unused:
 
 sort:
 	@echo "Sorting..."
-	isort api/
-	isort app/
+	isort .
 
 format:
 	@echo "Blacking..."
-	black api/
-	black app/
+	black .
 
 lint-fix: sort remove-unused format sort
 
