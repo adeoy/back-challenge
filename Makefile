@@ -1,40 +1,36 @@
-.PHONY: init
+install:
+	pip3 install pipenv
+	pipenv --three
+	pipenv install
 
-init:
-	make down
-	make up
-	make ps
-	make migrate
-down:
-	docker-compose down --volumes --remove-orphans
-pull:
-	docker-compose pull
-build:
-	docker-compose build
-up: pull build
-	docker-compose up -d
-ps:
-	docker-compose ps
-migrations:
-	docker-compose run --rm core python manage.py makemigrations
-migrate:
-	make migrations
-	docker-compose run --rm core python manage.py migrate
-su:
-	docker-compose run --rm core python manage.py createsuperuser
-test:
-	docker-compose run --rm core python manage.py test
-shell:
-	docker-compose run --rm core python manage.py shell
+remove-unused:
+	@echo "Remove unused..."
+	autoflake --recursive --in-place --remove-all-unused-imports --remove-unused-variables ./
+
+sort:
+	@echo "Sorting..."
+	isort api/
+	isort app/
+
 format:
-	docker-compose run --rm core black .
-lint:
-	docker-compose run --rm core black . --check
-setup:
-	docker-compose run --rm core pre-commit install
-prune:
-	make down
-	docker volume prune -f
-	docker system prune -f
-populatedb:
-	docker-compose run --rm core python manage.py populatedb
+	@echo "Blacking..."
+	black api/
+	black app/
+
+lint-fix: sort remove-unused format sort
+
+requirements:
+	@echo "Creating requirements.txt..."
+	pipenv run pip freeze > requirements.txt
+
+start:
+	@echo "Run Local in Debug..."
+	python migrate.py runserver
+
+pip-lock:
+	@echo "Pipenv Lock..."
+	pipenv lock
+
+up:
+	@if [ ! -f .env ]; then cp .env.example .env; fi
+	@docker-compose -f infrastructure/docker-compose.yml up --build;

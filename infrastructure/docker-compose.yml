@@ -1,0 +1,32 @@
+version: "3"
+
+services:
+    proxy:
+        image: nginx:1.19.7-alpine
+        container_name: back-challenge-proxy
+        depends_on:
+            - api
+        ports:
+            - "80:80"
+        networks:
+            - backchallengenet
+        volumes:
+            - ./nginx/templates:/etc/nginx/templates
+
+    api:
+        image: backchallenge/api
+        container_name: back-challenge-api
+        build:
+            context: ..
+            dockerfile: ./infrastructure/django/Dockerfile
+        volumes:
+            - ../:/opt/
+        env_file:
+            - ../.env
+        networks:
+            - backchallengenet
+        expose:
+            - 5000
+
+networks:
+    backchallengenet:
