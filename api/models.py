@@ -7,6 +7,6 @@ class Patient(models.Model):
     birth_date = models.DateField(null=True)
     email = models.EmailField(null=True)
     national_id = models.TextField(null=True)
-    
+
     class Meta:
         db_table = "patient"

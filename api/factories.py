@@ -5,7 +5,9 @@ from api.models import Patient
 
 fake = Faker()
 
+
 class PatientFactory(DjangoModelFactory):
     class Meta:
         model = Patient
-    first_name = fake.first_name() 
+
+    first_name = fake.first_name()
