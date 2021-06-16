@@ -1,5 +1,5 @@
 Django==3.2.3
 black==21.4b2
-pre-commit==2.12.1\
+pre-commit==2.12.1
 factory-boy==3.2.0
 Faker==8.1.0
