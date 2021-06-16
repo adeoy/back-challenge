@@ -1,5 +1,6 @@
 {
     "editor.tabSize": 4,
     "editor.formatOnSave": true,
-    "python.formatting.provider": "black"
+    "python.formatting.provider": "black",
+    "python.pythonPath": "/home/hugo/.local/share/virtualenvs/back-challenge-u4sE8_ZK/bin/python"
 }
