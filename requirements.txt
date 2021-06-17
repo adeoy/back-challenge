@@ -1,4 +1,5 @@
 Django==3.2.3
+djangorestframework==3.12.4
 black==21.4b2
 isort==5.8.0
 autoflake==1.4
