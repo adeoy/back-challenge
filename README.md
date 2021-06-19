@@ -72,17 +72,16 @@ As we said before, it can take you a couple of hours or a day.
 
 ---
 
-## Virtual Enviorment Setup
+### Up Containers
 
 ```bash
-python3 -m venv pyenv
-source pyenv/bin/activate
+make up
 ```
 
-## Install Dependencies
+## Install dependencies for local development
 
 ```bash
-pip install -r requirements.txt
+make install
 ```
 
 ---
@@ -105,9 +104,5 @@ Only redirect all the traffic of localhost to the Django API server inside the c
 ### Django
 
 Serves the API for patients and studies. More info in [API Documentation.md](API%20Documentation.md).
-
-### Up Containers
-
-`make up`
 
 ## TODOs

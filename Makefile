@@ -1,3 +1,8 @@
+install:
+	python3 -m pip install --upgrade pip pipenv
+	pipenv --three
+	pipenv install
+
 remove-unused:
 	@echo "Remove unused..."
 	autoflake --recursive --in-place --remove-all-unused-imports --remove-unused-variables ./
