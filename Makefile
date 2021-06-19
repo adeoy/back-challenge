@@ -51,3 +51,11 @@ migrate: migrations
 	@docker-compose -f infrastructure/docker-compose.yml run --rm api python manage.py migrate
 
 install: migrate up
+
+stop:
+	@echo "Stopping containers..."
+	@docker stop back-challenge-api back-challenge-proxy
+
+remove: stop
+	@echo "Removing containers..."
+	@docker rm back-challenge-api back-challenge-proxy
