@@ -89,4 +89,25 @@ pip install -r requirements.txt
 
 ## Architecture
 
+### Infraestructure
+
+![Infraestructure](docs/infraestructure.png "Infraestructure")
+
+We have two docker containers:
+
+-   Nginx as Web server.
+-   Django as the API server.
+
+### Nginx
+
+Only redirect all the traffic of localhost to the Django API server inside the container in localhost port 5000.
+
+### Django
+
+Serves the API for patients and studies. More info in [API Documentation.md](API%20Documentation.md).
+
+### Up Containers
+
+`make up`
+
 ## TODOs
