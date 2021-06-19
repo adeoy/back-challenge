@@ -1,5 +1,7 @@
 # API Documentation
 
+First `make up` the project then visit the URL: `http://localhost/api/`
+
 Currently we have to main api entries (endpoints).
 
 -   Patients: `/api/patients/`

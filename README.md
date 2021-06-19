@@ -54,37 +54,38 @@ As we said before, it can take you a couple of hours or a day.
 -   Good use of git (commits, pull requests, branches)
 -   Use of [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/) for commit messages
 
-1. Implement the CRUD for Patients
-2. Implement the CRUD for Studies
-3. Implement the a listing view of Patients that displays their Studies
-4. Fix Github Actions workflow for pipeline to work.
-5. Change from `pyenv` and `requirements.txt` to `pipenv` and `Pipfile`
-6. Add a `Dockerfile` and `docker-compose`
-7. Refactor the code
-8. Testing suite
+1. ✅ Implement the CRUD for Patients
+2. ✅ Implement the CRUD for Studies
+3. ✅ Implement the a listing view of Patients that displays their Studies
+4. ✅ Fix Github Actions workflow for pipeline to work.
+5. ✅ Change from `pyenv` and `requirements.txt` to `pipenv` and `Pipfile`
+6. ✅ Add a `Dockerfile` and `docker-compose`
+7. ✅ Refactor the code
+8. ✅ Testing suite
 
 ## How to deliver
 
-1. Clone this repo and share the link with us at the time to deliver (DO NOT FORK)
-2. Please document the repo and your code (using [docstring](https://www.python.org/dev/peps/pep-0257/)
-3. On the README, explain your architecture, and development choices.
-4. On the README, write a summary of what else you could/would like to have done if you had more time.
+1. ✅ Clone this repo and share the link with us at the time to deliver (DO NOT FORK)
+2. ✅ Please document the repo and your code (using [docstring](https://www.python.org/dev/peps/pep-0257/)
+3. ✅ On the README, explain your architecture, and development choices.
+4. ✅ On the README, write a summary of what else you could/would like to have done if you had more time.
 
 ---
 
-### Install
+### Makefile useful commands
 
-This will create the Django models, migrate, and up the containers:
-
-```bash
-make install
-```
-
-## Install dependencies for local development
-
-```bash
-make install-local
-```
+| Command                  | Description                                                                    |
+| ------------------------ | ------------------------------------------------------------------------------ |
+| `make start`             | This will create the Django models, migrate, and up the containers             |
+| `make install-local`     | This will install dependencies for local development (pipenv and the packages) |
+| `make lint-fix`          | Fix the lint errors (run `isort`, `autoflake`, and `black`)                    |
+| `make requirements`      | Create a `requirements.txt` file from `Pipfile`                                |
+| `make tests`             | Run the tests                                                                  |
+| `make coverage-report`   | Check the tests code coverage                                                  |
+| `make migrate`           | Make Django migrations (makemigrations, migrate command)                       |
+| `make create-superuser`  | Create Django superuser                                                        |
+| `make stop-containers`   | Stop project containers (back-challenge-api, back-challenge-proxy)             |
+| `make remove-containers` | Remove project containers (back-challenge-api, back-challenge-proxy)           |
 
 ## Architecture
 
@@ -105,6 +106,14 @@ Only redirect all the traffic of localhost to the Django API server inside the c
 
 Serves the API for patients and studies. More info in [API Documentation.md](API%20Documentation.md).
 
+Aditional used packages:
+
+-   Django Rest Framework (DRF): Used for easily create serializers and Api View Sets.
+-   DRF Nested Routers: For nest the studies endpoints inside de patient endpoint.
+-   Coverage: To check the tests code coverage.
+-   Autoflake: To remove unused variables and imports.
+-   isort: To sort the imports.
+
 ### Main files and directories
 
 ![Main files and directories](docs/directories.png "Main files and directories")
@@ -124,6 +133,7 @@ Serves the API for patients and studies. More info in [API Documentation.md](API
 
 ## TODOs
 
+-   Change the Database from SQLite to a more robust one (MariaDB, PostgreSQL, SQL Server, etc)
 -   Use OpenAPI to build the docs easily.
--   Deploy the project to an online cloud service (DigitalOcean, Heroku, AWS...)
+-   Deploy the project online (DigitalOcean, Heroku, AWS...)
 -   Add authentication and authorization for every exposed endpoint

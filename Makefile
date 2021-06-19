@@ -3,30 +3,16 @@ install-local:
 	pipenv --three
 	pipenv install
 
-remove-unused:
-	@echo "Remove unused..."
-	autoflake --recursive --in-place --remove-all-unused-imports --remove-unused-variables ./
-
-sort:
-	@echo "Sorting..."
-	isort .
-
-format:
-	@echo "Blacking..."
-	black .
-
-lint-fix: sort remove-unused format sort
-
-requirements:
-	@echo "Creating requirements.txt..."
-	pipenv lock -r --dev > requirements.txt
-
-pip-lock:
-	@echo "Pipenv Lock..."
-	pipenv lock
-
 check-env:
 	@if [ ! -f .env ]; then cp .env.dist .env; fi
+
+lint-fix: check-env
+	@echo "Formatting..."
+	@docker-compose -f infrastructure/docker-compose.yml run --rm api isort . && autoflake --recursive --in-place --remove-all-unused-imports --remove-unused-variables ./ && black . && isort .
+
+requirements: check-env
+	@echo "Creating requirements.txt..."
+	@docker-compose -f infrastructure/docker-compose.yml run --rm api pipenv lock -r --dev > requirements.txt
 
 up: check-env
 	@docker-compose -f infrastructure/docker-compose.yml up --build;
@@ -50,12 +36,16 @@ migrate: migrations
 	@echo "Django. Migrate"
 	@docker-compose -f infrastructure/docker-compose.yml run --rm api python manage.py migrate
 
-install: migrate up
+create-superuser: check-env
+	@echo "Django. Create superuser"
+	@docker-compose -f infrastructure/docker-compose.yml run --rm api python manage.py createsuperuser
 
-stop:
+start: migrate up
+
+stop-containers: check-env
 	@echo "Stopping containers..."
 	@docker stop back-challenge-api back-challenge-proxy
 
-remove: stop
+remove-containers: stop
 	@echo "Removing containers..."
 	@docker rm back-challenge-api back-challenge-proxy
