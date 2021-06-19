@@ -72,19 +72,19 @@ As we said before, it can take you a couple of hours or a day.
 
 ---
 
-### Up Containers
+### Install
 
-```bash
-make up
-```
-
-## Install dependencies for local development
+This will create the Django models, migrate, and up the containers:
 
 ```bash
 make install
 ```
 
----
+## Install dependencies for local development
+
+```bash
+make install-local
+```
 
 ## Architecture
 
@@ -105,4 +105,25 @@ Only redirect all the traffic of localhost to the Django API server inside the c
 
 Serves the API for patients and studies. More info in [API Documentation.md](API%20Documentation.md).
 
+### Main files and directories
+
+![Main files and directories](docs/directories.png "Main files and directories")
+
+| Name              | Description                                                       |
+| ----------------- | ----------------------------------------------------------------- |
+| `migrations/`     | Store the migrations history                                      |
+| `models/`         | Store the app models                                              |
+| `routes/`         | Store the app routes (ViewSet)                                    |
+| `serializers/`    | Store the app serializers and validators                          |
+| `tests/factories` | Store the model factories                                         |
+| `tests/models`    | Store the tests of models                                         |
+| `tests/routes`    | Store the tests of routes                                         |
+| `constants.py`    | Save useful constants                                             |
+| `urls.py`         | Register the routes                                               |
+| `__init__.py`     | Declare every directory as a package and expose the inner Classes |
+
 ## TODOs
+
+-   Use OpenAPI to build the docs easily.
+-   Deploy the project to an online cloud service (DigitalOcean, Heroku, AWS...)
+-   Add authentication and authorization for every exposed endpoint
