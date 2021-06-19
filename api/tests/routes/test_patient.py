@@ -117,7 +117,7 @@ class PatientTests(APITestCase):
 
         old_first_name: str = self.patient.first_name
         payload = {
-            "first_name": "John",
+            "first_name": "Juan",
         }
 
         # Happy path!

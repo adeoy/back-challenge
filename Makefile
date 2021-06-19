@@ -1,4 +1,4 @@
-install:
+install-local:
 	python3 -m pip install --upgrade pip pipenv
 	pipenv --three
 	pipenv install
@@ -25,14 +25,16 @@ pip-lock:
 	@echo "Pipenv Lock..."
 	pipenv lock
 
-up:
+check-env:
 	@if [ ! -f .env ]; then cp .env.dist .env; fi
+
+up: check-env
 	@docker-compose -f infrastructure/docker-compose.yml up --build;
 
-tests:
+tests: check-env
 	@docker-compose -f infrastructure/docker-compose.yml run --rm api python manage.py test api/tests
 
-coverage:
+coverage: check-env
 	@echo "Make Coverage"
 	@docker-compose -f infrastructure/docker-compose.yml run --rm api coverage run --source='.' manage.py test api/tests
 
@@ -40,10 +42,12 @@ coverage-report: coverage
 	@echo "Make Coverage Report"
 	@docker-compose -f infrastructure/docker-compose.yml run --rm api coverage report
 
-migrations:
+migrations: check-env
 	@echo "Django. Make Migrations"
 	@docker-compose -f infrastructure/docker-compose.yml run --rm api python manage.py makemigrations
 
 migrate: migrations
 	@echo "Django. Migrate"
 	@docker-compose -f infrastructure/docker-compose.yml run --rm api python manage.py migrate
+
+install: migrate up
