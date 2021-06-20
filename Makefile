@@ -40,12 +40,13 @@ create-superuser: check-env
 	@echo "Django. Create superuser"
 	@docker-compose -f infrastructure/docker-compose.yml run --rm api python manage.py createsuperuser
 
-start: migrate up
+db-populate:
+	docker exec back-challenge-db /bin/sh -c 'mysql -u root -p12345678 </tmp/back_challenge.sql'
 
 stop-containers: check-env
 	@echo "Stopping containers..."
 	@docker stop back-challenge-api back-challenge-proxy
 
-remove-containers: stop
+remove-containers: stop-containers
 	@echo "Removing containers..."
 	@docker rm back-challenge-api back-challenge-proxy

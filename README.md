@@ -76,16 +76,25 @@ As we said before, it can take you a couple of hours or a day.
 
 | Command                  | Description                                                                    |
 | ------------------------ | ------------------------------------------------------------------------------ |
-| `make start`             | This will create the Django models, migrate, and up the containers             |
+| `make up`                | This will up all the containers                                                |
+| `make migrate`           | Make Django migrations (makemigrations, migrate command)                       |
+| `make db-populate`       | Insert the initial data to the models                                          |
 | `make install-local`     | This will install dependencies for local development (pipenv and the packages) |
 | `make lint-fix`          | Fix the lint errors (run `isort`, `autoflake`, and `black`)                    |
 | `make requirements`      | Create a `requirements.txt` file from `Pipfile`                                |
 | `make tests`             | Run the tests                                                                  |
 | `make coverage-report`   | Check the tests code coverage                                                  |
-| `make migrate`           | Make Django migrations (makemigrations, migrate command)                       |
 | `make create-superuser`  | Create Django superuser                                                        |
 | `make stop-containers`   | Stop project containers (back-challenge-api, back-challenge-proxy)             |
 | `make remove-containers` | Remove project containers (back-challenge-api, back-challenge-proxy)           |
+
+### First execution
+
+1. Up all the containers in one Terminal tab with `make up`.
+2. In another Terminal tab create the models in the database with `make migrate`
+3. Finally populate the tables with the example data: `make db-populate`
+
+The next time you will only use the `make up` command to turn on the containers.
 
 ## Architecture
 
@@ -133,7 +142,7 @@ Aditional used packages:
 
 ## TODOs
 
--   Change the Database from SQLite to a more robust one (MariaDB, PostgreSQL, SQL Server, etc)
+-   ✅ Change the Database from SQLite to a more robust one (MariaDB, PostgreSQL, SQL Server, etc)
 -   Use OpenAPI to build the docs easily.
 -   Deploy the project online (DigitalOcean, Heroku, AWS...)
 -   Add authentication and authorization for every exposed endpoint

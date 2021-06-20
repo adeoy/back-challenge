@@ -8,6 +8,7 @@ Django = "==3.2.3"
 djangorestframework = "==3.12.4"
 drf-nested-routers = "==0.93.3"
 coverage = "==5.5"
+mysqlclient = "==2.0.3"
 
 [dev-packages]
 black = "==21.4b2"
